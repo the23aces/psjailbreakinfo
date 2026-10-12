@@ -18,7 +18,10 @@ test('Malformed values are rejected instead of becoming a supported version', ()
 
 test('PS4 known boundaries keep actual firmware routes distinct', () => {
   assert.equal(lookup('PS4', '9.00').method, 'pOOBs4 + GoldHEN');
-  assert.equal(lookup('PS4', '9.03').status, 'partial');
+  for (const version of ['5.07', '7.00', '7.01', '7.50', '7.51', '8.00', '8.01', '8.03', '8.50', '8.52', '9.03', '9.04', '9.50', '9.51']) {
+    assert.equal(lookup('PS4', version).status, 'available', version);
+    assert.match(lookup('PS4', version).payload, /GoldHEN/, version);
+  }
   assert.equal(lookup('PS4', '11.00').status, 'available');
   assert.equal(lookup('PS4', '11.52').entry, 'Blu-ray disc');
   assert.equal(lookup('PS4', '13.00').status, 'available');
@@ -27,7 +30,7 @@ test('PS4 known boundaries keep actual firmware routes distinct', () => {
     assert.equal(lookup('PS4', version).entry, 'Browser', version);
   }
   assert.equal(lookup('PS4', '13.51').status, 'unknown');
-  assert.equal(lookup('PS4', '14.00').status, 'unknown');
+  assert.equal(lookup('PS4', '14.00').status, 'unsupported');
 });
 
 test('PS5 exact allowlist exceptions never inherit support from nearby versions', () => {
@@ -36,17 +39,36 @@ test('PS5 exact allowlist exceptions never inherit support from nearby versions'
   assert.equal(lookup('PS5', '6.50').entry, 'YouTube app');
   assert.equal(lookup('PS5', '9.05').method, 'Y2JB + Lapse + etaHEN');
   assert.equal(lookup('PS5', '10.01').status, 'available');
-  assert.equal(lookup('PS5', '10.20').status, 'partial');
-  assert.equal(lookup('PS5', '11.40').status, 'unknown');
+  for (const version of ['10.20', '10.40', '10.60', '11.40']) {
+    const result = lookup('PS5', version);
+    assert.equal(result.status, 'available', version);
+    assert.match(result.payload, /Kstuff Lite/, version);
+  }
+  assert.equal(lookup('PS5', '11.40').method, 'WebKit + Poops + Kstuff Lite');
   for (const version of ['11.00', '11.20', '11.60', '12.00', '12.02', '12.20', '12.40', '12.60', '12.70', '13.00', '13.20', '13.40', '13.42', '13.60']) {
     const result = lookup('PS5', version);
     assert.equal(result.status, 'available', version);
     assert.match(result.method, /etaHEN Unified.*community/, version);
     assert.equal(result.hv, 'Not established by these sources', version);
   }
-  assert.equal(lookup('PS5', '14.10').status, 'unknown');
+  assert.equal(lookup('PS5', '14.10').status, 'unsupported');
   assert.equal(lookup('PS5', '13.61').status, 'unknown');
   assert.equal(lookup('PS5', '8.99').status, 'unknown');
+});
+
+test('Reviewed new releases are unsupported while unlisted inputs stay unverified', () => {
+  for (const [consoleName, version] of [['PS4', '14.00'], ['PS5', '14.00'], ['PS5', '14.10']]) {
+    const result = lookup(consoleName, version);
+    assert.equal(result.status, 'unsupported');
+    assert.equal(result.entry, 'Unavailable');
+    assert.ok(result.sources.includes(consoleName === 'PS4' ? 'ps4Updates' : 'ps5Updates'));
+  }
+  assert.equal(lookup('PS5', '26.06-14.10.00.00-00.00.00.0.1').status, 'unsupported');
+  assert.equal(lookup('PS4', '14.10').status, 'unknown');
+  assert.equal(lookup('PS5', '15.00').status, 'unknown');
+  assert.equal(filterGroups('PS4', '', 'unsupported').length, 1);
+  assert.deepEqual(filterGroups('PS5', '14.10', 'unsupported').flatMap(g => g.versions), ['14.00', '14.10']);
+  assert.equal(filterGroups('PS5', '14.10', 'available').length, 0);
 });
 
 test('Search combines exact version text, console, and support filters', () => {

@@ -1,4 +1,4 @@
-import { SOURCES, STATUSES, GROUPS, lookup, filterGroups } from './data.mjs?v=20261012-2';
+import { SOURCES, STATUSES, GROUPS, lookup, filterGroups } from './data.mjs?v=20261012-3';
 
 const $ = id => document.getElementById(id);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -9,7 +9,7 @@ let currentResult = null;
 let tableConsole = 'all';
 let expanded = false;
 let toastTimer;
-const featured = ['ps4-13-goldhen','ps4-poops','ps4-pppwn-hen','ps4-900','ps5-etahen-unified','ps5-7-10','ps5-5','ps5-hv'];
+const featured = ['ps4-13-goldhen','ps4-current-unsupported','ps4-poops','ps4-pppwn-hen','ps5-etahen-unified','ps5-current-unsupported','ps5-1140','ps5-kstuff'];
 
 function notify(message) {
   clearTimeout(toastTimer);
@@ -36,7 +36,7 @@ function renderResult(result) {
   currentResult = result;
   $('result').innerHTML = `<article class="result ${result.status}">
     <div class="result-top"><span class="result-icon">${icon(status.icon)}</span><div><h3>${status.title}</h3><div class="result-meta">${result.console} <span aria-hidden="true">/</span> FIRMWARE ${escape(result.version)}</div></div></div>
-    <p class="result-description">${result.status === 'unknown' ? status.description : `<strong>${escape(result.method)}</strong>. ${result.status === 'available' ? 'A compatible route and homebrew enabler are documented.' : 'Kernel access is documented; check support for your chosen payload.'}`}</p>
+    <p class="result-description">${['unknown', 'unsupported'].includes(result.status) ? status.description : `<strong>${escape(result.method)}</strong>. ${result.status === 'available' ? 'A compatible route and homebrew enabler are documented.' : 'Kernel access is documented; check support for your chosen payload.'}`}</p>
     <div class="result-actions"><button class="text-link" id="result-details">View methods & requirements ${icon('arrow')}</button><button class="quiet-link" id="share-result">${icon('share')} Share result</button></div>
   </article>`;
   $('result-details').addEventListener('click', () => openDetails(currentResult));
@@ -90,7 +90,7 @@ function openDetails(record) {
   showDialog(title, `${badge(record.status)}
     <p class="dialog-description">${escape(record.detail)}</p>
     <dl class="detail-facts"><div><dt>Entry point</dt><dd>${escape(record.entry)}</dd></div><div><dt>Homebrew payload</dt><dd>${escape(record.payload)}</dd></div>${record.console === 'PS5' ? `<div><dt>Hypervisor</dt><dd>${escape(record.hv || 'Not verified')}</dd></div>` : ''}<div><dt>Evidence checked</dt><dd>12 October 2026</dd></div></dl>
-    <h3 class="dialog-subtitle">What this route needs</h3><p class="dialog-description">${escape(record.requirement)}</p>
+    <h3 class="dialog-subtitle">${record.status === 'unsupported' ? 'Current availability' : 'What this route needs'}</h3><p class="dialog-description">${escape(record.requirement)}</p>
     ${versionList}
     <h3 class="dialog-subtitle">Check the original sources</h3><div class="dialog-sources">${record.sources.map(key => `<a href="${SOURCES[key].url}" target="_blank" rel="noopener noreferrer">${escape(SOURCES[key].name)} ${icon('external')}</a>`).join('')}</div>
     <p class="dialog-foot">Based on project documentation, not a hands-on test. A listed route does not guarantee every feature or a successful attempt.</p>`);

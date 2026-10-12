@@ -28,3 +28,5 @@ Run `node --test tests/compatibility.test.mjs`. Tests cover firmware parsing, ve
 - Responsive layout and keyboard navigation
 
 Independent project, not affiliated with Sony Interactive Entertainment. The website provides information and does not contain or execute console exploits. Compatibility is based on project documentation, not hands-on hardware tests.
+
+The October 12 review includes the expanded GoldHEN firmware list and the PS5 Poops/Kstuff Lite route for 11.40. `unsupported` is an explicitly reviewed, released firmware with no public jailbreak documented as of the review date (PS4 14.00; PS5 14.00 and 14.10). Unlisted inputs remain `unknown`; future versions are never classified by a numeric cutoff.
