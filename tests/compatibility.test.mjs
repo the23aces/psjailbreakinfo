@@ -22,8 +22,12 @@ test('PS4 known boundaries keep actual firmware routes distinct', () => {
   assert.equal(lookup('PS4', '11.00').status, 'available');
   assert.equal(lookup('PS4', '11.52').entry, 'Blu-ray disc');
   assert.equal(lookup('PS4', '13.00').status, 'available');
-  assert.equal(lookup('PS4', '13.02').status, 'unknown');
-  assert.equal(lookup('PS4', '13.52').status, 'unknown');
+  for (const version of ['13.02', '13.04', '13.50', '13.52']) {
+    assert.equal(lookup('PS4', version).status, 'available', version);
+    assert.equal(lookup('PS4', version).entry, 'Browser', version);
+  }
+  assert.equal(lookup('PS4', '13.51').status, 'unknown');
+  assert.equal(lookup('PS4', '14.00').status, 'unknown');
 });
 
 test('PS5 exact allowlist exceptions never inherit support from nearby versions', () => {
@@ -34,7 +38,13 @@ test('PS5 exact allowlist exceptions never inherit support from nearby versions'
   assert.equal(lookup('PS5', '10.01').status, 'available');
   assert.equal(lookup('PS5', '10.20').status, 'partial');
   assert.equal(lookup('PS5', '11.40').status, 'unknown');
-  assert.equal(lookup('PS5', '13.60').status, 'partial');
+  for (const version of ['11.00', '11.20', '11.60', '12.00', '12.02', '12.20', '12.40', '12.60', '12.70', '13.00', '13.20', '13.40', '13.42', '13.60']) {
+    const result = lookup('PS5', version);
+    assert.equal(result.status, 'available', version);
+    assert.match(result.method, /etaHEN Unified.*community/, version);
+    assert.equal(result.hv, 'Not established by these sources', version);
+  }
+  assert.equal(lookup('PS5', '14.10').status, 'unknown');
   assert.equal(lookup('PS5', '13.61').status, 'unknown');
   assert.equal(lookup('PS5', '8.99').status, 'unknown');
 });
@@ -42,7 +52,9 @@ test('PS5 exact allowlist exceptions never inherit support from nearby versions'
 test('Search combines exact version text, console, and support filters', () => {
   assert.ok(filterGroups('PS4', '13.00', 'available').some(g => g.id === 'ps4-poops'));
   assert.equal(filterGroups('PS4', '13.60').length, 0);
-  assert.ok(filterGroups('PS5', '13.60', 'partial').some(g => g.id === 'ps5-relapse'));
+  assert.ok(filterGroups('PS4', '13.52', 'available').some(g => g.id === 'ps4-13-goldhen'));
+  assert.ok(filterGroups('PS5', '13.60', 'available').some(g => g.id === 'ps5-etahen-unified'));
+  assert.equal(filterGroups('PS5', '13.60', 'partial').length, 0);
   assert.equal(filterGroups('all', 'no-such-method').length, 0);
 });
 

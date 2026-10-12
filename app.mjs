@@ -1,4 +1,4 @@
-import { SOURCES, STATUSES, GROUPS, lookup, filterGroups } from './data.mjs';
+import { SOURCES, STATUSES, GROUPS, lookup, filterGroups } from './data.mjs?v=20261012-2';
 
 const $ = id => document.getElementById(id);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -9,7 +9,7 @@ let currentResult = null;
 let tableConsole = 'all';
 let expanded = false;
 let toastTimer;
-const featured = ['ps4-poops','ps4-lapse','ps4-pppwn-hen','ps4-900','ps5-relapse','ps5-7-10','ps5-5','ps5-hv'];
+const featured = ['ps4-13-goldhen','ps4-poops','ps4-pppwn-hen','ps4-900','ps5-etahen-unified','ps5-7-10','ps5-5','ps5-hv'];
 
 function notify(message) {
   clearTimeout(toastTimer);
