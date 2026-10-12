@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0f0d">
+  <meta name="description" content="Check PS4 and PS5 jailbreak compatibility by exact firmware. Find documented homebrew support, exploit methods, requirements, and original sources.">
+  <meta property="og:title" content="psjailbreakinfo — Know your firmware. Know your options.">
+  <meta property="og:description" content="A clear, source-backed PS4 and PS5 firmware checker. Homebrew support, exploit methods, and exact-version compatibility.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://the23aces.github.io/psjailbreakinfo/">
+  <title>psjailbreakinfo — PS4 & PS5 Firmware Checker</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#checker">Skip to firmware checker</a>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6L10 14m-2-9H4v15h15v-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m6 12 4 4 8-9"/></symbol>
+    <symbol id="i-circle-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4m0 3.5v.1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 16V3m-4 4 4-4 4 4M5 12v8h14v-8"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 10 5-10 5L2 8l10-5ZM2 12l10 5 10-5M2 16l10 5 10-5"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m7 7-5 5 5 5m10-10 5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-ps4" viewBox="0 0 48 48"><path d="m8 17 28-5 5 7-28 5-5-7Zm5 7v12l28-5V19M8 17v12l5 7m0-6 28-5M19 26v5"/></symbol>
+    <symbol id="i-ps5" viewBox="0 0 48 48"><path d="M18 5c3 9 2 25-1 34l9 3c-1-13 0-26 2-36l-10-1Zm10 1 7 4c-3 9-3 22-1 30l-8 2m-14-3 5 4h19l4-3M30 30v5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v16M3 4c4-1 6-1 9 1 3-2 5-2 9-1v15c-4-1-6-1-9 1-3-2-5-2-9-1V4Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  </defs></svg>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./" aria-label="psjailbreakinfo home"><img src="./favicon.svg" width="35" height="35" alt=""><span>psjailbreak<span class="accent">info</span><span class="brand-dot">.</span></span></a>
+      <nav aria-label="Main navigation"><a class="active" href="#checker">Firmware checker</a><a href="#database">Compatibility</a><a href="#learn">The basics</a><a href="#sources">Sources</a></nav>
+      <button class="icon-button" id="theme-toggle" aria-label="Switch to light theme" title="Switch theme"><svg class="icon"><use href="#i-sun"/></svg></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero wrap" id="checker" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-dot"></span> YOUR PLAYSTATION. YOUR POSSIBILITIES.</div>
+        <h1 id="hero-title">Know your <br>firmware.<br><span>Know your options.</span></h1>
+        <p class="hero-description">Can your PS4 or PS5 run homebrew?<br>Get a clear answer, the available methods, and the sources to back it up.</p>
+        <a href="#database" class="text-link">Explore the compatibility list <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <div class="hero-foot"><span><svg class="icon"><use href="#i-shield"/></svg> Original project sources</span><span class="tiny-divider"></span><span>Exact firmware checks</span></div>
+      </div>
+      <div class="checker-panel">
+        <div class="panel-top"><span class="eyebrow">FIRMWARE CHECKER</span><span class="mono muted">01 / CHECK</span></div>
+        <h2>Where does your console stand?</h2>
+        <form id="checker-form" novalidate>
+          <fieldset class="console-fieldset"><legend>01 <span>Choose your console</span></legend>
+            <div class="console-options">
+              <label class="console-choice"><input type="radio" name="console" value="PS4" checked><span class="console-card"><svg class="console-icon"><use href="#i-ps4"/></svg><span><strong>PlayStation 4</strong><small>Original · Slim · Pro</small></span><span class="radio-mark"></span></span></label>
+              <label class="console-choice"><input type="radio" name="console" value="PS5"><span class="console-card"><svg class="console-icon"><use href="#i-ps5"/></svg><span><strong>PlayStation 5</strong><small>Original · Slim · Pro</small></span><span class="radio-mark"></span></span></label>
+            </div>
+          </fieldset>
+          <div class="firmware-label"><label for="firmware"><span class="step-number">02</span> Enter your firmware</label><button type="button" class="quiet-link" id="firmware-help">Where do I find it? <svg class="icon"><use href="#i-circle-help"/></svg></button></div>
+          <div class="input-row"><div class="firmware-input-wrap"><span class="mono" aria-hidden="true">FW</span><input id="firmware" name="firmware" value="11.00" placeholder="e.g. 11.00" autocomplete="off" inputmode="decimal" list="firmware-options" aria-describedby="input-error" maxlength="60"><datalist id="firmware-options"></datalist></div><button class="primary-button" type="submit">Check firmware <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+          <p id="input-error" class="input-error" role="alert" hidden></p>
+        </form>
+        <div id="result" class="result-shell" aria-live="polite" aria-atomic="true"></div>
+        <p class="checker-note">Source snapshot <span class="mono">12 OCT 2026</span> <span>·</span> <a href="#sources">How we verify</a></p>
+      </div>
+    </section>
+
+    <div class="overview-strip wrap"><div><span class="strip-label">A QUICK READ</span><strong>The scene at a glance</strong></div><button class="overview-item" data-quick="PS4"><span class="console-tag">PS4</span><div><strong>Homebrew routes through 13.00</strong><span>Exact version and method matter</span></div><svg class="icon"><use href="#i-arrow"/></svg></button><button class="overview-item" data-quick="PS5"><span class="console-tag purple">PS5</span><div><strong>Kernel routes through 13.60</strong><span>Homebrew support varies by payload</span></div><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+
+    <section id="database" class="database-section wrap" aria-labelledby="database-title">
+      <div class="section-heading"><div><p class="eyebrow">THE COMPATIBILITY DATABASE</p><h2 id="database-title">Find your firmware.</h2><p>Documented routes, with the details that make a difference.</p></div><a href="#legend" class="quiet-link">What do the statuses mean? <svg class="icon"><use href="#i-circle-help"/></svg></a></div>
+      <div class="table-toolbar"><div class="segmented" aria-label="Filter by console"><button class="selected" data-console-filter="all" aria-pressed="true">All consoles</button><button data-console-filter="PS4" aria-pressed="false">PS4</button><button data-console-filter="PS5" aria-pressed="false">PS5</button></div><div class="table-controls"><label class="search-box"><svg class="icon"><use href="#i-search"/></svg><input id="table-search" placeholder="Search firmware or method…" aria-label="Search firmware or method"><kbd aria-hidden="true">/</kbd></label><select id="status-filter" aria-label="Filter by support status"><option value="all">All statuses</option><option value="available">Homebrew available</option><option value="partial">Exploit available</option><option value="unknown">Not verified</option></select></div></div>
+      <div class="table-container"><table><caption class="sr-only">PS4 and PS5 firmware compatibility, reviewed 12 October 2026. Ranges contain only the exact versions shown in details.</caption><thead><tr><th scope="col">CONSOLE / FIRMWARE</th><th scope="col">STATUS</th><th scope="col">DOCUMENTED METHOD</th><th scope="col">ENTRY POINT</th><th scope="col"><span class="sr-only">Details</span></th></tr></thead><tbody id="firmware-table"></tbody></table><div class="empty-state" id="empty-state" hidden><svg class="icon"><use href="#i-search"/></svg><h3>No matching records</h3><p>Try a different firmware or reset the filters.</p><button id="reset-filters" class="secondary-button">Reset filters</button></div></div>
+      <div class="table-footer"><span id="table-count" aria-live="polite"></span><button id="show-more" class="quiet-link">Show all records <svg class="icon"><use href="#i-chevron"/></svg></button><span>Ranges contain <strong>specific versions</strong>, not every number.</span></div>
+      <div class="legend" id="legend"><span class="legend-title">READ THE STATUS</span><div><span class="legend-dot available"></span><span><strong>Homebrew available</strong><small>Exploit + homebrew enabler documented</small></span></div><div><span class="legend-dot partial"></span><span><strong>Exploit available</strong><small>Kernel access; check payload support</small></span></div><div><span class="legend-dot unknown"></span><span><strong>Not verified</strong><small>No confirmed route in this snapshot</small></span></div></div>
+    </section>
+
+    <section class="learn-section wrap" id="learn" aria-labelledby="learn-title"><div class="section-heading"><div><p class="eyebrow">A LITTLE CONTEXT GOES A LONG WAY</p><h2 id="learn-title">Understand your options.</h2></div><span class="mono muted small">LESS GUESSWORK. BETTER INFORMATION.</span></div>
+      <div class="learn-grid"><article><span class="learn-icon"><svg class="icon"><use href="#i-layers"/></svg></span><span class="mono card-number">01</span><h3>A jailbreak has layers.</h3><p>An entry point opens an app or browser. A kernel exploit grants deeper access. A homebrew enabler adds usable features. A PS5 hypervisor exploit is another, separate layer.</p><a href="#legend" class="text-link">Understand the labels <svg class="icon"><use href="#i-arrow"/></svg></a></article><article><span class="learn-icon"><svg class="icon"><use href="#i-code"/></svg></span><span class="mono card-number">02</span><h3>The exact version matters.</h3><p>11.00 and 11.02 can require different methods. A supported range may have exceptions. Check your console’s own firmware, and read the requirements for its exact entry.</p><button id="learn-firmware-help" class="text-link">Find my firmware <svg class="icon"><use href="#i-arrow"/></svg></button></article><article><span class="learn-icon"><svg class="icon"><use href="#i-book"/></svg></span><span class="mono card-number">03</span><h3>Go straight to the source.</h3><p>Compatibility changes. Every record links to project documentation so you can check the current requirements, known issues, and release notes before making changes.</p><a href="#sources" class="text-link">Explore the sources <svg class="icon"><use href="#i-arrow"/></svg></a></article></div>
+      <div class="faq"><h3>A few common questions.</h3><details><summary>Does “homebrew available” mean everything works?<svg class="icon"><use href="#i-chevron"/></svg></summary><p>No. It means the cited projects document a compatible route and homebrew enabler. Features, stability, game support, console model requirements, and rest mode can differ. Check the linked project notes for your exact setup.</p></details><details><summary>Is “not verified” the same as “not jailbreakable”?<svg class="icon"><use href="#i-chevron"/></svg></summary><p>No. This is a curated snapshot, not proof that no exploit exists. Unlisted, newly released, or older versions may need additional research. We do not turn an unsupported guess into a yes or no.</p></details><details><summary>Does this website jailbreak my console?<svg class="icon"><use href="#i-chevron"/></svg></summary><p>This site checks compatibility and explains documented options. It does not run exploits on your console. The project links open documentation, where you can review the requirements.</p></details><details><summary>Does this information update automatically?<svg class="icon"><use href="#i-chevron"/></svg></summary><p>This edition was reviewed on 12 October 2026. It is a manually reviewed snapshot and does not fetch live compatibility data. Source links lead to the current project pages.</p></details><details><summary>Does the console model matter?<svg class="icon"><use href="#i-chevron"/></svg></summary><p>Yes. Firmware is the first check; entry-point requirements still matter. A Blu-ray method requires a usable disc drive, and an app-based method can require a specific app version or installation process. An old firmware listed here may never have shipped on a newer console model.</p></details></div>
+    </section>
+
+    <section class="sources-section wrap" id="sources" aria-labelledby="sources-title"><div class="section-heading"><div><p class="eyebrow">BUILT ON THE WORK OF THE SCENE</p><h2 id="sources-title">Real projects. Original sources.</h2><p>Credit belongs to the researchers and developers making it possible.</p></div><span class="source-date"><span class="status-dot"></span> Sources checked 12 Oct 2026</span></div><div id="source-grid" class="source-grid"></div><details class="methodology"><summary>Our verification approach <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Records are based on maintainer documentation and release notes, not hands-on console testing. We match explicit firmware lists where available; where a maintainer documents a range, we list known releases in that range. A homebrew result combines a documented exploit route with enabler support. A kernel exploit alone receives its own label. Documentation can lag behind releases, and this database is not exhaustive.</p><p>PS5 hypervisor support is only claimed where ps5-hen explicitly documents it. Relapse compatibility follows its source-code allowlist, including gaps in its headline range. PS4 13.52 payload reports are kept separate from a verified complete jailbreak route.</p></details></section>
+    <noscript><div class="wrap noscript">Enable JavaScript to use the firmware checker and compatibility filters. You can still read the explanations above and review the <a href="https://github.com/GoldHEN/GoldHEN/releases">GoldHEN</a> and <a href="https://github.com/etaHEN/etaHEN/releases">etaHEN</a> project releases.</div></noscript>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="./"><img src="./favicon.svg" width="29" height="29" alt=""><span>psjailbreak<span class="accent">info</span>.</span></a><p>An independent guide to PlayStation homebrew.</p><a href="#checker" class="text-link">Back to the checker <svg class="icon"><use href="#i-arrow"/></svg></a></div><div class="wrap footer-bottom"><span>Not affiliated with Sony Interactive Entertainment. PlayStation is a Sony trademark.</span><span class="mono">MADE FOR THE CURIOUS.</span></div></footer>
+  <dialog id="details-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow" id="dialog-eyebrow">FIRMWARE DETAILS</span><button class="icon-button" id="close-dialog" aria-label="Close details"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="dialog-content"></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
